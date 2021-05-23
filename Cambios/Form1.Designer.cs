@@ -29,6 +29,7 @@ namespace Cambios
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.txt_Valor = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@ namespace Cambios
             this.lbl_Resultado = new System.Windows.Forms.Label();
             this.lbl_Status = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.bt_Troca = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -97,6 +99,7 @@ namespace Cambios
             // 
             // bt_Converter
             // 
+            this.bt_Converter.Enabled = false;
             this.bt_Converter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.bt_Converter.Location = new System.Drawing.Point(349, 41);
             this.bt_Converter.Name = "bt_Converter";
@@ -104,6 +107,7 @@ namespace Cambios
             this.bt_Converter.TabIndex = 6;
             this.bt_Converter.Text = "Converter";
             this.bt_Converter.UseVisualStyleBackColor = true;
+            this.bt_Converter.Click += new System.EventHandler(this.bt_Converter_Click);
             // 
             // label4
             // 
@@ -128,10 +132,10 @@ namespace Cambios
             // lbl_Status
             // 
             this.lbl_Status.AutoSize = true;
-            this.lbl_Status.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl_Status.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbl_Status.Location = new System.Drawing.Point(12, 264);
             this.lbl_Status.Name = "lbl_Status";
-            this.lbl_Status.Size = new System.Drawing.Size(43, 17);
+            this.lbl_Status.Size = new System.Drawing.Size(39, 13);
             this.lbl_Status.TabIndex = 9;
             this.lbl_Status.Text = "Status";
             // 
@@ -142,11 +146,24 @@ namespace Cambios
             this.progressBar1.Size = new System.Drawing.Size(133, 13);
             this.progressBar1.TabIndex = 10;
             // 
+            // bt_Troca
+            // 
+            this.bt_Troca.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bt_Troca.BackgroundImage")));
+            this.bt_Troca.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bt_Troca.Enabled = false;
+            this.bt_Troca.Location = new System.Drawing.Point(349, 107);
+            this.bt_Troca.Name = "bt_Troca";
+            this.bt_Troca.Size = new System.Drawing.Size(81, 76);
+            this.bt_Troca.TabIndex = 11;
+            this.bt_Troca.UseVisualStyleBackColor = true;
+            this.bt_Troca.Click += new System.EventHandler(this.bt_Troca_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 290);
+            this.Controls.Add(this.bt_Troca);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.lbl_Status);
             this.Controls.Add(this.lbl_Resultado);
@@ -159,6 +176,7 @@ namespace Cambios
             this.Controls.Add(this.txt_Valor);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Câmbios";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -178,6 +196,7 @@ namespace Cambios
         private System.Windows.Forms.Label lbl_Resultado;
         private System.Windows.Forms.Label lbl_Status;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button bt_Troca;
     }
 }
 
