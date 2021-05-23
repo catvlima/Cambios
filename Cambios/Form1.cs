@@ -1,4 +1,5 @@
 ﻿using Cambios.Modelos;
+using Cambios.Servicos;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,44 +17,62 @@ namespace Cambios
 {
     public partial class Form1 : Form
     {
+        private NetworkService networkService;
+
+        private ApiService apiService;
+
+        public List<Rate> Rates { get; set; } = new List<Rate>();
+
         public Form1()
         {
             InitializeComponent();
+            networkService = new NetworkService();
+            apiService = new ApiService();
             LoadRates();
         }
 
         private async void LoadRates()
         {
             //bool load;
-            progressBar1.Value = 0;
 
-            var client = new HttpClient();
+            lbl_Resultado.Text = "A atualizar taxas...";
 
-            client.BaseAddress = new Uri("http://cambios.somee.com");
+            var connection = networkService.CheckConnection();
 
-            var response = await client.GetAsync("/api/rates");
-
-            var result = await response.Content.ReadAsStringAsync();
-
-            if (!response.IsSuccessStatusCode)
+            if (!connection.IsSuccess)
             {
-                MessageBox.Show(response.ReasonPhrase);
+                MessageBox.Show(connection.Message);
                 return;
             }
+            else
+            {
+                await LoadApiRates();
+            }
 
-            var rates = JsonConvert.DeserializeObject<List<Rate>>(result);
-
-            comboBoxOrigem.DataSource = rates;
+            comboBoxOrigem.DataSource = Rates;
             comboBoxOrigem.DisplayMember = "Name";
 
             //Corrige bug da microsoft
             comboBoxDestino.BindingContext = new BindingContext();
 
-            comboBoxDestino.DataSource = rates;
+            comboBoxDestino.DataSource = Rates;
             comboBoxDestino.DisplayMember = "Name";
 
             progressBar1.Value = 100;
 
+            lbl_Resultado.Text = "Taxas carregadas";
+
+
+        }
+
+        private async Task LoadApiRates()
+        {
+            progressBar1.Value = 0;
+
+            var response = await apiService.GetRates("http://cambios.somee.com", "/api/rates");
+
+            Rates = (List<Rate>) response.Result;
+           
         }
     }
 }
