@@ -25,8 +25,10 @@ namespace Cambios
         private async void LoadRates()
         {
             //bool load;
+            progressBar1.Value = 0;
 
             var client = new HttpClient();
+
             client.BaseAddress = new Uri("http://cambios.somee.com");
 
             var response = await client.GetAsync("/api/rates");
@@ -42,6 +44,15 @@ namespace Cambios
             var rates = JsonConvert.DeserializeObject<List<Rate>>(result);
 
             comboBoxOrigem.DataSource = rates;
+            comboBoxOrigem.DisplayMember = "Name";
+
+            //Corrige bug da microsoft
+            comboBoxDestino.BindingContext = new BindingContext();
+
+            comboBoxDestino.DataSource = rates;
+            comboBoxDestino.DisplayMember = "Name";
+
+            progressBar1.Value = 100;
 
         }
     }
