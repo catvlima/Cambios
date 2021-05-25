@@ -25,6 +25,8 @@ namespace Cambios
 
         private DialogService dialogService;
 
+        private DataService dataService;
+
         
 
         public Form1()
@@ -33,6 +35,7 @@ namespace Cambios
             networkService = new NetworkService();
             apiService = new ApiService();
             dialogService = new DialogService();
+            dataService = new DataService();
             LoadRates();
         }
 
@@ -61,6 +64,8 @@ namespace Cambios
                 lbl_Resultado.Text = "Não há ligação à Internet" + Environment.NewLine +
                     "e não foram préviamente carregadas as taxas." + Environment.NewLine +
                     "Tente mais tarde!";
+
+                lbl_Status.Text = "Primeira inicialização deverá ter ligação à Internet";
 
                 return;
             }
@@ -97,7 +102,7 @@ namespace Cambios
 
         private void LoadLocalRates()
         {
-            MessageBox.Show("Não está implementado");
+            Rates = dataService.GetData();
         }
 
         private async Task LoadApiRates()
@@ -107,6 +112,10 @@ namespace Cambios
             var response = await apiService.GetRates("http://cambios.somee.com", "/api/rates");
 
             Rates = (List<Rate>) response.Result;
+
+            dataService.DeleteData();
+
+            dataService.SaveData(Rates);
            
         }
 
@@ -165,6 +174,11 @@ namespace Cambios
         private void bt_Troca_Click_1(object sender, EventArgs e)
         {
             Troca();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
